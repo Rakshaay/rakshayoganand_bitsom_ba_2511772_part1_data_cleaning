@@ -1,56 +1,96 @@
-# Cleaning Log
+# Data Cleaning Log
 
-## Issues Found
-- Missing values in region, ship mode, and discount columns.
-- Negative discount values.
-- Discount values above the allowed range.
-- Cancelled, failed payment, and refunded orders requiring special handling.
-- Records where the ship date was earlier than the order date.
+# 1. List of Issues Found
 
-## Cleaning Actions Performed
-- Replaced missing region values with "Unknown".
-- Replaced missing ship mode values with "Unknown".
-- Replaced missing discount values with 0 when other sales fields were valid.
-- Standardized text fields and date formats.
-- Identified and handled duplicate records.
-- Created calculated columns for analysis and validation.
+The raw dataset contained multiple data quality issues, including:
 
-## Business Rules Applied
-- Missing region values were filled with "Unknown" and documented in the data quality report.
-- Missing ship mode values were filled with "Unknown" and documented in the data quality report.
-- Missing discount values were treated as 0 only when other sales fields were valid.
-- Negative discount values were flagged as Invalid.
-- Discounts above the allowed range were flagged as Invalid.
-- Cancelled orders were retained but excluded from the final completed sales summary.
-- Failed payment orders were retained but excluded from the final completed sales summary.
-- Refunded orders were retained and summarized separately.
-- Records with ship dates earlier than order dates were flagged as Invalid Shipping Records.
+- Inconsistent text formatting
+- Extra leading and trailing spaces
+- Mixed date formats
+- Missing region values
+- Missing ship mode values
+- Missing discount values
+- Negative discount values
+- Discount values above the allowed range
+- Duplicate order IDs
+- Exact duplicate records
+- Ship dates earlier than order dates
+- Cancelled, refunded and failed order records
 
-## Assumptions Made
-- Missing discount values were considered as 0 only when quantity, unit price, and cost information were available.
-- "Unknown" was used as the standard replacement for missing categorical values.
+---
 
-## Records Removed
-- Only exact duplicate rows were removed after verification.
+# 2. Cleaning Actions Performed
 
-## Records Flagged
-- Duplicate order IDs with conflicting information were flagged for manual review.
-- Invalid discounts and invalid shipping records were flagged for quality checks.
+The following cleaning steps were performed on the dataset:
 
-## Limitations
-- Flagged records may require manual verification before business decisions are made.
-- The cleaning process is based only on the provided dataset and business rules. 
+- Used TRIM() to remove extra spaces.
+- Used PROPER() to standardize text formatting.
+- Standardized region, category, ship mode and other text fields.
+- Converted different date formats into a single consistent format (dd-mmm-yyyy).
+- Filled missing region values with "Unknown".
+- Filled missing ship mode values with "Unknown".
+- Replaced missing discount values with 0 only when other sales fields were valid.
+- Identified duplicate order IDs.
+- Removed only exact duplicate records.
+- Flagged conflicting duplicate records for manual review.
+- Created calculated columns for sales, profit, profit margin, shipping delay, month and year.
 
+---
 
-| **Field / Business Rule**    | **Action Taken**                                | **Count** |
-| ---------------------------- | ----------------------------------------------- | --------: |
-| Region                       | Filled missing values with **"Unknown"**        |    **25** |
-| Ship Mode                    | Filled missing values with **"Unknown"**        |    **21** |
-| Discount                     | Replaced missing values with **0** (when valid) |    **18** |
-| Negative Discount            | Flagged as **Invalid**                          |    **15** |
-| Discount Above Allowed Range | Flagged as **Invalid**                          |    **15** |
-| Cancelled Orders             | Excluded from the final completed sales summary |   **145** |
-| Failed Payments              | Excluded from the final completed sales summary |    **69** |
-| Refunded Orders              | Summarized separately for analysis              |    **71** |
-| Ship Date Before Order Date  | Flagged as **Invalid Shipping Record**          |    **91** |
+# 3. Business Rules Applied
 
+- Missing Region → Filled with "Unknown".
+- Missing Ship Mode → Filled with "Unknown".
+- Missing Discount → Replaced with 0 when other sales fields were valid.
+- Negative Discount → Flagged as Invalid.
+- Discount above allowed range → Flagged as Invalid.
+- Cancelled Orders → Excluded from completed sales summary.
+- Failed Payments → Excluded from completed sales summary.
+- Refunded Orders → Summarized separately.
+- Ship Date before Order Date → Flagged as Invalid Shipping Record.
+
+---
+
+# 4. Assumptions Made
+
+- Unknown values were retained instead of deleting records.
+- Maximum valid discount considered was 50%.
+- Missing discounts were treated as 0 only when quantity, unit price and cost values were available.
+- Cancelled and failed orders were kept in the dataset for reporting purposes but excluded from completed sales summaries.
+
+---
+
+# 5. Records Removed
+
+- Exact duplicate rows were removed after verification.
+- No conflicting duplicate order IDs were deleted automatically.
+
+---
+
+# 6. Records Flagged
+
+The following records were flagged for review:
+
+- Duplicate order IDs with conflicting information
+- Negative discount values
+- Discount values above allowed range
+- Ship dates earlier than order dates
+- Missing mandatory information
+- Failed payment records
+- Cancelled orders
+- Refunded orders
+
+---
+
+# 7. Limitations
+
+- Business rules were applied based only on the available dataset.
+- Some conflicting duplicate records may require manual verification.
+- Invalid values were flagged instead of corrected when sufficient information was not available.
+- No external data source was used for validation.
+
+---
+
+# Conclusion
+
+The cleaned dataset is standardized, validated and ready for business analysis. All identified issues have either been corrected or clearly flagged for further review while preserving the integrity of the original data.
