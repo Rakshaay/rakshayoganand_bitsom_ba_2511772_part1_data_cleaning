@@ -153,8 +153,20 @@ The repository contains screenshots of:
 - Pivot Summary 2
 
 These screenshots demonstrate the data cleaning process and the final analysis reports.
-<img width="1894" height="707" alt="image" src="https://github.com/user-attachments/assets/2285230c-418c-400c-a960-2b5a259941e5" />
 ## Raw_Order
+
+<img width="1894" height="707" alt="image" src="https://github.com/user-attachments/assets/2285230c-418c-400c-a960-2b5a259941e5" />
+
+## Clean_Order With Calculation
+<img width="1707" height="610" alt="image" src="https://github.com/user-attachments/assets/5c458f49-3cfe-4964-85a1-fe709390fe40" />
+
+## Pivot Table with Sorting of region performed
+<img width="965" height="568" alt="image" src="https://github.com/user-attachments/assets/1a262431-8cd4-479e-b292-25d9291b3f26" />
+
+## Pivot Table with Filtering of order status performed
+<img width="1897" height="605" alt="image" src="https://github.com/user-attachments/assets/c74a5e17-7429-464e-84f6-bc6e41a14253" />
+
+
 
 
 
